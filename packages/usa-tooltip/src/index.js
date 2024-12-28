@@ -315,6 +315,7 @@ const hideToolTip = (tooltipBody) => {
 const setUpAttributes = (tooltipTrigger) => {
   const tooltipID = `tooltip-${Math.floor(Math.random() * 900000) + 100000}`;
   const tooltipContent = tooltipTrigger.getAttribute("title");
+  const tooltipContentPrefix = "Tooltip ";
   const wrapper = document.createElement("span");
   const tooltipBody = document.createElement("span");
   const additionalClasses = tooltipTrigger.getAttribute("data-classes");
@@ -352,6 +353,7 @@ const setUpAttributes = (tooltipTrigger) => {
   tooltipBody.setAttribute("id", tooltipID);
   tooltipBody.setAttribute("role", "tooltip");
   tooltipBody.setAttribute("aria-hidden", "true");
+  tooltipBody.setAttribute("aria-label", `${tooltipContentPrefix}: ${tooltipContent}`);
 
   // place the text in the tooltip
   tooltipBody.textContent = tooltipContent;
