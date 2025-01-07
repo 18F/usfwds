@@ -144,6 +144,24 @@ future version of Sass' warning.
 
 /*
 ----------------------------------------
+@if-output-utility
+----------------------------------------
+Renders the content block if the given
+utility name is enabled by theme
+settings
+----------------------------------------
+*/
+
+@mixin if-output-utility($utility-name) {
+  @if ($output-these-utilities == "default") or
+    list.index($output-these-utilities, $utility-name)
+  {
+    @content;
+  }
+}
+
+/*
+----------------------------------------
 @render-utilities-in
 ----------------------------------------
 The master loop that sets the building
@@ -157,9 +175,7 @@ through all possible variants
   // loop through the $utilities
   @each $utility-name, $utility in $utilities {
     // Check to see if the utility is in the output uselist
-    @if ($output-these-utilities == "default") or
-      list.index($output-these-utilities, $utility-name)
-    {
+    @include if-output-utility($utility-name) {
       // Only do this if the the utility is meant to output
       @if not($media-key) or
         ($media-key and map-deep-get($utility, settings, responsive))

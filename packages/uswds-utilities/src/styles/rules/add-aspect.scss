@@ -21,6 +21,7 @@ example:
 @use "uswds-core/src/styles/settings" as *;
 @use "uswds-core/src/styles/variables/aspect-ratios" as *;
 @use "uswds-core/src/styles/mixins/general/add-aspect" as *;
+@use "uswds-core/src/styles/mixins/utility-builder" as *;
 
 $add-aspect: (
   add-aspect: (
@@ -54,16 +55,18 @@ $add-aspect: (
   ),
 );
 
-@each $aspect-key in map.keys($project-aspect-ratios) {
-  .add-aspect-#{$aspect-key} {
-    @include add-aspect($aspect-key, "image");
+@include if-output-utility("add-aspect") {
+  @each $aspect-key in map.keys($project-aspect-ratios) {
+    .add-aspect-#{$aspect-key} {
+      @include add-aspect($aspect-key, "image");
+    }
   }
-}
 
-// Safari and firefox require a width attribute on img elements for aspect-ratio to work
-// using :where() to reduce specificity in case a width utility class is added
-@supports (aspect-ratio: 1) {
-  :where(img[class*="add-aspect-"]) {
-    width: min-content;
+  // Safari and firefox require a width attribute on img elements for aspect-ratio to work
+  // using :where() to reduce specificity in case a width utility class is added
+  @supports (aspect-ratio: 1) {
+    :where(img[class*="add-aspect-"]) {
+      width: min-content;
+    }
   }
 }
