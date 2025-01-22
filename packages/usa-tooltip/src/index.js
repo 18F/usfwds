@@ -379,10 +379,9 @@ const tooltip = behavior(
     "mouseover focusin": {
       [TOOLTIP](e) {
         const trigger = e.target;
-        const elementType = trigger.nodeName;
 
         // Initialize tooltip if it hasn't already
-        if (elementType === "BUTTON" && trigger.hasAttribute("title")) {
+        if (trigger.hasAttribute("title")) {
           setUpAttributes(trigger);
         }
       },
