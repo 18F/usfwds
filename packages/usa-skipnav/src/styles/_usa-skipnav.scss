@@ -8,17 +8,14 @@
   left: 0;
   padding: units(1) units(2);
   position: absolute;
-  top: -3.8rem; // skipnav link height
+  bottom: 100%;
   transition: $project-easing;
   z-index: z-index(100);
 
   &:focus,
   &.usa-focus {
     background: color("white");
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: $project-easing;
+    transform: translateY(100%);
   }
 }
 
