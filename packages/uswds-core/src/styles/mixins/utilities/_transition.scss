@@ -1,0 +1,20 @@
+@use "sass:meta";
+@use "sass:string";
+@use "../../variables/project-easing" as *;
+
+// Outputs transition with project default easing and media query to disable inessential animation
+// when reduced motion is preferred.
+
+@mixin u-transition($prop, $easing: $project-easing, $essential: false) {
+  @if meta.type-of($easing) == "string" {
+    $easing: string.unquote($easing);
+  }
+
+  transition: string.unquote($prop) $easing;
+
+  @if not $essential {
+    @media (prefers-reduced-motion) {
+      transition: none;
+    }
+  }
+}

@@ -50,7 +50,7 @@ $triangle-size: 5px;
 
 .usa-tooltip__body,
 .usa-tooltip__body--top {
-  transition: opacity 0.08s ease-in-out;
+  @include u-transition("opacity", $easing: 0.08s ease-in-out);
   background-color: color($theme-tooltip-background-color);
   border-radius: radius($theme-button-border-radius);
   color: color($theme-tooltip-font-color);
