@@ -938,6 +938,49 @@ const enhanceDatePicker = (el) => {
     <div class="usa-sr-only ${DATE_PICKER_STATUS_CLASS}" role="status" aria-live="polite"></div>`,
   );
 
+  /**
+   * Formats the input date as the user types, ensuring proper formatting and behavior (adding leading zeros and slashes).
+   */
+  const reformatInputValue = (event) => {
+    if (event.inputType === "deleteContentBackward") {
+      return;
+    }
+
+    const { target } = event;
+    const inputValue = target.value.replace(/\//g, "");
+    if (inputValue.length === 1 && target.value.includes("/")) {
+      const month = parseInt(inputValue, 10);
+      target.value = `${String(month).padStart(2, "0")}/`;
+    } else if (inputValue.length === 2) {
+      const month = parseInt(inputValue, 10);
+      target.value = `${String(month).padStart(2, "0")}/`;
+    } else if (inputValue.length === 3 && target.value.endsWith("/")) {
+      const month = parseInt(inputValue.slice(0, 2), 10);
+      const day = parseInt(inputValue.slice(2, 3), 10);
+      target.value = `${String(month).padStart(2, "0")}/${String(day).padStart(
+        2,
+        "0",
+      )}/`;
+    } else if (inputValue.length === 4) {
+      const month = parseInt(inputValue.slice(0, 2), 10);
+      const day = parseInt(inputValue.slice(2, 4), 10);
+      target.value = `${String(month).padStart(2, "0")}/${String(day).padStart(
+        2,
+        "0",
+      )}/`;
+    } else if (inputValue.length === 6) {
+      const month = parseInt(inputValue.slice(0, 2), 10);
+      const day = parseInt(inputValue.slice(2, 4), 10);
+      const year = inputValue.slice(4);
+      target.value = `${String(month).padStart(2, "0")}/${String(day).padStart(
+        2,
+        "0",
+      )}/${year}`;
+    }
+  };
+
+  externalInputEl.addEventListener("input", reformatInputValue);
+
   internalInputEl.setAttribute("aria-hidden", "true");
   internalInputEl.setAttribute("tabindex", "-1");
   internalInputEl.style.display = "none";
