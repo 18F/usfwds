@@ -10,7 +10,7 @@ $background-context: "Background";
     color: color($theme-text-reverse-color);
   }
 
-  a {
+  a:not(.usa-button) {
     @include set-link-from-bg(
       "base-darker",
       $theme-link-reverse-color,
