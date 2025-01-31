@@ -28,24 +28,33 @@ module.exports = {
         .pipe(source(`${packageName}.js`))
         .pipe(buffer()),
       "uswds-init": src("packages/uswds-core/src/js/uswds-init.js"),
-    }).map(([basename, stream]) =>
-      stream
+    }).map(([basename, stream]) => {
+      let mappedStream = stream
         .pipe(rename({ basename }))
-        .pipe(dest("dist/js"))
-        .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(dest("dist/js"));
+
+      if (basename !== "uswds-init") {
+        mappedStream = mappedStream.pipe(sourcemaps.init({ loadMaps: true }));
+      }
+
+      mappedStream = mappedStream
         .on("error", function handleError(error) {
           dutil.logError(error);
-          this.emit('end');
+          this.emit("end");
         })
         .pipe(uglify())
         .pipe(
           rename({
             suffix: ".min",
           })
-        )
-        .pipe(sourcemaps.write("."))
-        .pipe(dest("dist/js"))
-    );
+        );
+
+      if (basename !== "uswds-init") {
+        mappedStream = mappedStream.pipe(sourcemaps.write("."));
+      }
+
+      return mappedStream.pipe(dest("dist/js"));
+    });
 
     return merge(streams);
   },
