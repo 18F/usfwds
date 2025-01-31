@@ -32,6 +32,19 @@
   border: units(1px) solid color("base");
 }
 
+// Range slider and hint
+.usa-range__wrapper {
+  max-width: 20rem;
+  display: flex;
+  flex-direction: row;
+  .usa-range__hint {
+    border: none;
+    width: 10%;
+    margin: 5px 0 0 4px;
+    height: 2.5em;
+  }
+}
+
 .usa-range {
   @extend %block-input-general;
   @extend %block-input-styles;
