@@ -33,11 +33,13 @@ describe("navigation toggle", () => {
   let header;
   let nav;
   let navControl;
+  let navPrimary;
   let overlay;
   let closeButton;
   let menuButton;
   let accordionButton;
   let navLink;
+  let sectionLink;
 
   const isVisible = (el) => el.classList.contains("is-visible");
 
@@ -48,11 +50,13 @@ describe("navigation toggle", () => {
     header = body.querySelector(".usa-header");
     nav = body.querySelector(".usa-nav");
     navControl = body.querySelector(".usa-nav__link");
+    navPrimary = body.querySelector(".usa-nav__primary");
     overlay = body.querySelector(".usa-overlay");
     closeButton = body.querySelector(".usa-nav__close");
     menuButton = body.querySelector(".usa-menu-btn");
     accordionButton = nav.querySelector(".usa-accordion__button");
     navLink = nav.querySelector("a");
+    sectionLink = nav.querySelector("#section-link");
     sandbox = sinon.createSandbox();
   });
 
@@ -93,9 +97,9 @@ describe("navigation toggle", () => {
     assert.strictEqual(isVisible(overlay), false);
   });
 
-  it("hides the nav when a nav link is clicked", () => {
+  it("in mobile: hides the nav when a hash link is clicked", () => {
     menuButton.click();
-    navLink.click();
+    sectionLink.click();
     assert.strictEqual(isVisible(nav), false);
   });
 
@@ -146,6 +150,19 @@ describe("navigation toggle", () => {
     assert.strictEqual(accordionButton.getAttribute("aria-expanded"), "false");
   });
 
+  it("in desktop: collapses accordions when a section link is clicked", () => {
+    accordionButton.click();
+    sectionLink.click();
+    assert.strictEqual(accordionButton.getAttribute("aria-expanded"), "false");
+  });
+
+  it("in mobile: keeps nav open when nav link is clicked", () => {
+    menuButton.click();
+    assert.strictEqual(isVisible(nav), true);
+    navLink.click();
+    assert.strictEqual(isVisible(nav), true);
+  });
+
   it("collapses dropdowns when the Escape key is hit", () => {
     accordionButton.click();
     EVENTS.escape(accordionButton);
@@ -163,9 +180,10 @@ describe("navigation toggle", () => {
 
   it("collapses dropdowns when focus leaves nav", () => {
     menuButton.click();
-    navLink.click();
-    EVENTS.focusOut(navLink);
-    assert.strictEqual(isVisible(nav), false);
+    accordionButton.click();
+    assert.strictEqual(accordionButton.getAttribute("aria-expanded"), "true");
+    EVENTS.focusOut(navPrimary);
+    assert.strictEqual(accordionButton.getAttribute("aria-expanded"), "false");
   });
 
   describe("off()", () => {
