@@ -6,7 +6,7 @@
         {{ item.title }}
       </button>
     </h4>
-    <div id="{{ id_prefix }}{{ item.id }}" class="usa-accordion__content usa-prose">
+    <div id="{{ id_prefix }}{{ item.id }}" class="usa-accordion__content usa-prose {% if item.expanded != true %}usa-js-loading__hidden-content{% endif %}">
       {{ item.content }}
     </div>
   {% endfor %}
