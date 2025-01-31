@@ -775,6 +775,53 @@ const handleUpFromListOption = (event) => {
 };
 
 /**
+ * Handle the home and end keypress events
+ *
+ * @param {KeyboardEvent} event An event within the combo box component
+ * @param {boolean} home True when the home (or page up) key was pressed. False
+ * when the end (or page down) key was pressed
+ */
+const handleHomeOrEnd = (event, home) => {
+  const { comboBoxEl } = getComboBoxContext(event.target);
+  const options = comboBoxEl.querySelectorAll(".usa-combo-box__list li");
+  const index = home ? 0 : options.length - 1;
+  highlightOption(comboBoxEl, options[index]);
+  event.preventDefault();
+};
+
+/**
+ * Handle a press of the home key within the combo box list
+ *
+ * @param {KeyboardEvent} event An event within the combo box component
+ */
+const handleHomeFromListOption = (event) => {
+  handleHomeOrEnd(event, true);
+};
+
+/**
+ * Handle a press of the page up key within the combo box list
+ *
+ * @param {KeyboardEvent} event An event within the combo box component
+ */
+const handlePageUpFromListOption = handleHomeFromListOption;
+
+/**
+ * Handle a press of the end key within the combo box list
+ *
+ * @param {KeyboardEvent} event An event within the combo box component
+ */
+const handleEndFromListOption = (event) => {
+  handleHomeOrEnd(event, false);
+};
+
+/**
+ * Handle a press of the page down key within the combo box list
+ *
+ * @param {KeyboardEvent} event An event within the combo box component
+ */
+const handlePageDownFromListOption = handleEndFromListOption;
+
+/**
  * Select list option on the mouseover event.
  *
  * @param {MouseEvent} event The mouseover event
@@ -867,6 +914,10 @@ const comboBox = behavior(
         Enter: handleEnterFromListOption,
         " ": handleSpaceFromListOption,
         "Shift+Tab": noop,
+        Home: handleHomeFromListOption,
+        PageUp: handlePageUpFromListOption,
+        End: handleEndFromListOption,
+        PageDown: handlePageDownFromListOption,
       }),
     },
     input: {
