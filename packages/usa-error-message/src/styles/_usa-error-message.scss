@@ -3,6 +3,12 @@
 .usa-error-message {
   @include u-padding-y(0.5);
   color: color("error-dark");
-  display: block;
   font-weight: font-weight("bold");
+  // Block styling prevents regressions to other error elements
+  display: block;
+
+  // Hidden style ensures input mask hides properly
+  &[hidden] {
+    display: none;
+  }
 }
