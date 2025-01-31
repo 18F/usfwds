@@ -116,3 +116,13 @@
     <button type="button" class="{{ tooltip.classes }}" data-position="right" title="A longer Top tooltip that is longer than appx 320px" data-classes="{{ tooltip.util_classes }}" title="">Show on Right</button>
   </div>
 </div>
+<h2>With trigger positioning offsets</h2>
+<hr/>
+<p>In this scenario:</p>
+<ul>
+  <li>The tooltip should be positioned accounting for any offsets that might apply from the trigger</li>
+</ul>
+<button type="button" class="{{ tooltip.classes }} margin-top-1" data-position="top" data-classes="{{ tooltip.util_classes }}" title="Top">Show on top with margin-top-1</button>
+<button type="button" class="{{ tooltip.classes }} margin-bottom-1" data-position="bottom" data-classes="{{ tooltip.util_classes }}" title="Bottom">Show on bottom with margin-bottom-1</button>
+<button type="button" class="{{ tooltip.classes }} margin-left-1" data-position="left" data-classes="{{ tooltip.util_classes }}" title="Left">Show on left with margin-left-1</button>
+<button type="button" class="{{ tooltip.classes }} margin-right-1" data-position="right" data-classes="{{ tooltip.util_classes }}" title="Right">Show on right with margin-right-1</button>
