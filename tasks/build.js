@@ -25,5 +25,9 @@ exports.build = series(
   parallel(copyTheme, copyImages, copyFonts, copyIcons, copySass),
   buildSprite,
   compileJS,
-  compileSass
+  compileSass,
+  (done) => {
+    dutil.logPostscript();
+    done();
+  }
 );
