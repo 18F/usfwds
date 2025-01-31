@@ -196,3 +196,17 @@ $accordion-button-open-hc-icon: map-merge(
 .usa-accordion__button[aria-expanded="false"] {
   @include accordion-button-unopened-styles;
 }
+
+// [uswds-init.js] Offscreen content while js is loading
+.usa-js-loading {
+  .usa-accordion {
+    .usa-accordion__heading:has(
+        .usa-accordion__button:not([aria-expanded="true"])
+      ),
+    .usa-accordion__button:not([aria-expanded="true"]) {
+      & + .usa-accordion__content {
+        @include add-sr-only;
+      }
+    }
+  }
+}
