@@ -18,6 +18,12 @@ const TestNoLabelTemplate = (args) => TestNoLabelComponent(args);
 const TestNoFromGroupTemplate = (args) => TestNoFormGroupComponent(args);
 
 export const CharacterCount = Template.bind({});
+CharacterCount.decorators = [
+  (Story) =>
+    `<div class="padding-x-205">
+      ${Story()}
+    </div>`,
+];
 
 export const Disabled = Template.bind({});
 Disabled.args = {
@@ -42,6 +48,13 @@ TestNoLabel.argTypes = {
   },
 };
 
+TestNoLabel.decorators = [
+  (Story) =>
+    `<div class="padding-x-205">
+      ${Story()}
+    </div>`,
+];
+
 export const TestNoFormGroup = TestNoFromGroupTemplate.bind({});
 TestNoFormGroup.parameters = {
   axe: {
@@ -53,3 +66,9 @@ TestNoFormGroup.argTypes = {
     table: { disable: true },
   },
 };
+TestNoFormGroup.decorators = [
+  (Story) =>
+    `<div class="padding-x-205">
+      ${Story()}
+    </div>`,
+];
