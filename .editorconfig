@@ -1,17 +1,18 @@
-# IDE settings for the Midas project. Many IDE's support this as a starting point
-# for a project. For more info, see http://EditorConfig.org.
+# https://EditorConfig.org
 
-# top-most EditorConfig file
+# Top-most EditorConfig file
 root = true
 
 # Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
 charset = utf-8
 indent_style = space
 indent_size = 2
 
 [{*.md}]
+trim_trailing_whitespace = false
 indent_style = space
 indent_size = 4
