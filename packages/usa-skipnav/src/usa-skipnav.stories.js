@@ -1,5 +1,5 @@
 import Component from "./usa-skipnav.twig";
-import Content from "./usa-skipnav.json";
+import { DefaultContent, FocusContent } from "./content";
 
 export default {
   title: "Components/Skipnav",
@@ -7,5 +7,8 @@ export default {
 
 const Template = (args) => Component(args);
 
-export const Skipnav = Template.bind({});
-Skipnav.args = Content;
+export const Default = Template.bind({});
+Default.args = DefaultContent;
+
+export const Focus = Template.bind({});
+Focus.args = FocusContent;
