@@ -47,9 +47,6 @@
   "jsnext:main": "./packages/uswds-core/src/js/start.js",
   "style": "dist/css/uswds.min.css",
   "sass": "./src/stylesheets/uswds.scss",
-  "mocha": {
-    "config": "src/utils/test/.mocharc.json"
-  },
   "scripts": {
     "build": "gulp",
     "lint": "npm run lint:js && npm run lint:sass",
