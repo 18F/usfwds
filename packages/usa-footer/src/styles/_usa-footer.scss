@@ -84,6 +84,7 @@ $-chevron-expand-more: map-merge(
   border: 0;
   border-top: 1px solid color("base-light");
   display: block;
+  background-color: color("base-lightest");
 
   @include at-media("mobile-lg") {
     @include u-padding-x(0);
@@ -137,6 +138,7 @@ $-chevron-expand-more: map-merge(
   line-height: line-height($theme-footer-font-family, 2);
   margin-left: units(2);
   padding: 0;
+  background-color: color("base-lightest");
 
   a {
     @include typeset-link;
