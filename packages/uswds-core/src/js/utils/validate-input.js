@@ -1,4 +1,3 @@
-const debounce = require("./debounce");
 const { prefix: PREFIX } = require("../config");
 
 const CHECKED_CLASS = `${PREFIX}-checklist__item--checked`;
@@ -51,12 +50,12 @@ module.exports = function validate(el) {
       // Create a summary of status for all checklist items
       statusSummary += `${checkboxContent}. `;
 
-      // Add summary to screen reader summary container, after a delay
-      const srUpdateStatus = debounce(() => {
+      // Add summary to screen reader summary container
+      const createSrStatus = () =>{
         statusSummaryContainer.textContent = statusSummary;
-      }, 1000);
+      }
 
-      srUpdateStatus();
+      createSrStatus();
     }
   });
 };

@@ -1,5 +1,6 @@
 const behavior = require("../../uswds-core/src/js/utils/behavior");
 const validate = require("../../uswds-core/src/js/utils/validate-input");
+const debounce = require("../../uswds-core/src/js/utils/debounce");
 const { prefix: PREFIX } = require("../../uswds-core/src/js/config");
 const selectOrMatches = require("../../uswds-core/src/js/utils/select-or-matches");
 
@@ -7,8 +8,10 @@ const VALIDATE_INPUT =
   "input[data-validation-element],textarea[data-validation-element]";
 const CHECKLIST_ITEM = `.${PREFIX}-checklist__item`;
 
-// Trigger validation on input change
-const handleChange = (el) => validate(el);
+// Trigger validation on input change, after a delay
+const handleChange = debounce((el) => {
+  validate(el);
+}, 1000);
 
 // Create container to hold aria readout
 const createStatusElement = (input) => {
@@ -48,6 +51,7 @@ const createInitialStatus = (input) => {
 const enhanceValidation = (input) => {
   createStatusElement(input);
   createInitialStatus(input);
+  validate(input);
 };
 
 const validator = behavior(
