@@ -1,4 +1,5 @@
 const select = require("../../uswds-core/src/js/utils/select");
+const selectOrMatches = require("../../uswds-core/src/js/utils/select-or-matches");
 const behavior = require("../../uswds-core/src/js/utils/behavior");
 const debounce = require("../../uswds-core/src/js/utils/debounce");
 const { prefix: PREFIX } = require("../../uswds-core/src/js/config");
@@ -90,6 +91,26 @@ const createStatusMessages = (characterCountEl) => {
   srStatusMessage.textContent = defaultMessage;
 
   characterCountEl.append(statusMessage, srStatusMessage);
+};
+
+/**
+ * Teardown to remove status messages that were created on init
+ *
+ * @param {HTMLDivElement} characterCountEl - Div with `.usa-character-count` class
+ * @description  Remove the two status messages that were added during initialization of
+ * the character count module
+ */
+const removeStatusMessages = (characterCountEl) => {
+  const status = characterCountEl.getElementsByClassName(
+    `${STATUS_MESSAGE_CLASS} usa-hint`,
+  );
+  const srStatus = characterCountEl.getElementsByClassName(
+    `${STATUS_MESSAGE_SR_ONLY_CLASS} usa-sr-only`,
+  );
+
+  [...status, ...srStatus].forEach((node) => {
+    node.remove();
+  });
 };
 
 /**
@@ -215,6 +236,11 @@ const characterCount = behavior(
     createStatusMessages,
     getCountMessage,
     updateCountMessage,
+    teardown(root) {
+      selectOrMatches(CHARACTER_COUNT, root).forEach((node) => {
+        removeStatusMessages(node);
+      });
+    },
   },
 );
 
