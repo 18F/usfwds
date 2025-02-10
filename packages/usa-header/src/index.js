@@ -3,7 +3,6 @@ const behavior = require("../../uswds-core/src/js/utils/behavior");
 const select = require("../../uswds-core/src/js/utils/select");
 const toggle = require("../../uswds-core/src/js/utils/toggle");
 const FocusTrap = require("../../uswds-core/src/js/utils/focus-trap");
-const accordion = require("../../usa-accordion/src/index");
 const ScrollBarWidth = require("../../uswds-core/src/js/utils/scrollbar-width");
 
 const { CLICK } = require("../../uswds-core/src/js/events");
@@ -188,57 +187,82 @@ const handleEscape = (event) => {
   focusNavButton(event);
 };
 
+/**
+ * Compares current location and clicked link to determine if the link is to a subsection of current page.
+ *
+ * @param {HTMLAnchorElement} targetLink - The clicked link in header.
+ * @returns {boolean} Return `true` if target is same page || Return `false` if target is on a different page.
+ */
+const isChildSection = (targetLink) => {
+  const currentPage = window.location;
+  const linkDestination = new URL(targetLink.href);
+  const currentURLPath = currentPage.origin + currentPage.pathname;
+  const linkURLPath = linkDestination.origin + linkDestination.pathname;
+
+  return currentURLPath === linkURLPath;
+};
+
+/**
+ * Sets activeNav to clicked accordion, closes any other open navs.
+ *
+ * @param {HTMLButtonElement} clickedAccordion - Clicked NAV_CONTROL
+ */
+const updateActiveNav = (clickedAccordion) => {
+  // If another nav is open, close it.
+  if (navActive !== clickedAccordion) {
+    hideActiveNavDropdown();
+  }
+
+  // If no active nav, set navActive to clicked nav.
+  if (!navActive) {
+    navActive = clickedAccordion;
+    toggle(navActive, true);
+  }
+};
+
+/**
+ * Check if nav link is on the current page, if so close the mobile nav menu.
+ *
+ * @param {HTMLAnchorElement} navLink - Nav link clicked in header.
+ */
+const handleMobileNav = (navLink) => {
+  if (isChildSection(navLink)) {
+    navigation.toggleNav.call(navigation, false);
+  }
+};
+
+/**
+ * Collapse nav accordions when focus leaves primary nav
+ */
+const closeOnFocusOut = (event) => {
+  const nav = event.target.closest(NAV_PRIMARY);
+
+  if (!nav.contains(event.relatedTarget)) {
+    hideActiveNavDropdown();
+  }
+};
+
 navigation = behavior(
   {
     [CLICK]: {
       [NAV_CONTROL]() {
-        // If another nav is open, close it
-        if (navActive !== this) {
-          hideActiveNavDropdown();
-        }
-        // store a reference to the last clicked nav link element, so we
-        // can hide the dropdown if another element on the page is clicked
-        if (!navActive) {
-          navActive = this;
-          toggle(navActive, true);
-        }
+        updateActiveNav(this);
 
         // Do this so the event handler on the body doesn't fire
         return false;
       },
+      [NAV_LINKS]() {
+        handleMobileNav(this);
+      },
       [BODY]: hideActiveNavDropdown,
       [OPENERS]: toggleNav,
       [CLOSERS]: toggleNav,
-      [NAV_LINKS]() {
-        // A navigation link has been clicked! We want to collapse any
-        // hierarchical navigation UI it's a part of, so that the user
-        // can focus on whatever they've just selected.
-
-        // Some navigation links are inside accordions; when they're
-        // clicked, we want to collapse those accordions.
-        const acc = this.closest(accordion.ACCORDION);
-
-        if (acc) {
-          accordion.getButtons(acc).forEach((btn) => accordion.hide(btn));
-        }
-
-        // If the mobile navigation menu is active, we want to hide it.
-        if (isActive()) {
-          navigation.toggleNav.call(navigation, false);
-        }
-      },
     },
     keydown: {
       [NAV_PRIMARY]: keymap({ Escape: handleEscape }),
     },
     focusout: {
-      [NAV_PRIMARY](event) {
-        const nav = event.target.closest(NAV_PRIMARY);
-
-        if (!nav.contains(event.relatedTarget)) {
-          hideActiveNavDropdown();
-        }
-      },
+      [NAV_PRIMARY]: closeOnFocusOut,
     },
   },
   {
