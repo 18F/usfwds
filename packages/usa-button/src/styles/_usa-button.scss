@@ -50,11 +50,6 @@ $button-stroke: inset 0 0 0 units($theme-button-stroke-width);
     outline-offset: units(0.5);
   }
 
-  &:disabled,
-  &[aria-disabled="true"] {
-    @include button-disabled;
-  }
-
   .usa-icon {
     flex-shrink: 0; // Avoid shrinking on small screens.
   }
@@ -64,94 +59,72 @@ $button-stroke: inset 0 0 0 units($theme-button-stroke-width);
       border: $border-high-contrast;
     }
   }
-}
 
-.usa-button--accent-cool {
-  @include set-text-and-bg("accent-cool", $context: $button-context);
-
-  &:visited {
+  &.usa-button--accent-cool {
     @include set-text-and-bg("accent-cool", $context: $button-context);
-  }
-
-  &:hover,
-  &.usa-button--hover {
-    @include set-text-and-bg("accent-cool-dark", $context: $button-context);
-  }
-
-  &:active,
-  &.usa-button--active {
-    @include set-text-and-bg("accent-cool-darker", $context: $button-context);
-  }
-}
-
-.usa-button--accent-warm {
-  @include set-text-and-bg("accent-warm", $context: $button-context);
-
-  &:visited {
-    @include set-text-and-bg("accent-warm", $context: $button-context);
-  }
-
-  &:hover,
-  &.usa-button--hover {
-    @include set-text-and-bg("accent-warm-dark", $context: $button-context);
-  }
-
-  &:active,
-  &.usa-button--active {
-    @include set-text-and-bg("accent-warm-darker", $context: $button-context);
-  }
-}
-
-.usa-button--outline {
-  background-color: color("transparent");
-  box-shadow: $button-stroke color("primary");
-  color: color("primary");
-
-  &:visited {
-    color: color("primary");
-  }
-
-  &:hover,
-  &.usa-button--hover {
-    background-color: color("transparent");
-    box-shadow: $button-stroke color("primary-dark");
-    color: color("primary-dark");
-  }
-
-  &:active,
-  &.usa-button--active {
-    background-color: color("transparent");
-    box-shadow: $button-stroke color("primary-darker");
-    color: color("primary-darker");
-  }
-
-  &.usa-button--inverse {
-    $button-inverse-color: $theme-link-reverse-color;
-    $button-inverse-hover-color: $theme-link-reverse-hover-color;
-    $button-inverse-active-color: $theme-link-reverse-active-color;
-
-    box-shadow: $button-stroke color("base-lighter");
-    color: color($button-inverse-color);
 
     &:visited {
-      color: color($button-inverse-color);
+      @include set-text-and-bg("accent-cool", $context: $button-context);
     }
 
     &:hover,
     &.usa-button--hover {
-      box-shadow: $button-stroke color($button-inverse-hover-color);
-      color: color($button-inverse-hover-color);
+      @include set-text-and-bg("accent-cool-dark", $context: $button-context);
     }
 
     &:active,
     &.usa-button--active {
-      background-color: transparent;
-      box-shadow: $button-stroke color($button-inverse-active-color);
-      color: color($button-inverse-active-color);
+      @include set-text-and-bg("accent-cool-darker", $context: $button-context);
+    }
+  }
+
+  &.usa-button--accent-warm {
+    @include set-text-and-bg("accent-warm", $context: $button-context);
+
+    &:visited {
+      @include set-text-and-bg("accent-warm", $context: $button-context);
     }
 
-    &.usa-button--unstyled {
-      @include button-unstyled;
+    &:hover,
+    &.usa-button--hover {
+      @include set-text-and-bg("accent-warm-dark", $context: $button-context);
+    }
+
+    &:active,
+    &.usa-button--active {
+      @include set-text-and-bg("accent-warm-darker", $context: $button-context);
+    }
+  }
+
+  &.usa-button--outline {
+    background-color: color("transparent");
+    box-shadow: $button-stroke color("primary");
+    color: color("primary");
+
+    &:visited {
+      color: color("primary");
+    }
+
+    &:hover,
+    &.usa-button--hover {
+      background-color: color("transparent");
+      box-shadow: $button-stroke color("primary-dark");
+      color: color("primary-dark");
+    }
+
+    &:active,
+    &.usa-button--active {
+      background-color: color("transparent");
+      box-shadow: $button-stroke color("primary-darker");
+      color: color("primary-darker");
+    }
+
+    &.usa-button--inverse {
+      $button-inverse-color: $theme-link-reverse-color;
+      $button-inverse-hover-color: $theme-link-reverse-hover-color;
+      $button-inverse-active-color: $theme-link-reverse-active-color;
+
+      box-shadow: $button-stroke color("base-lighter");
       color: color($button-inverse-color);
 
       &:visited {
@@ -160,79 +133,107 @@ $button-stroke: inset 0 0 0 units($theme-button-stroke-width);
 
       &:hover,
       &.usa-button--hover {
+        box-shadow: $button-stroke color($button-inverse-hover-color);
         color: color($button-inverse-hover-color);
       }
 
       &:active,
       &.usa-button--active {
+        background-color: transparent;
+        box-shadow: $button-stroke color($button-inverse-active-color);
         color: color($button-inverse-active-color);
+      }
+
+      &.usa-button--unstyled {
+        @include button-unstyled;
+        color: color($button-inverse-color);
+
+        &:visited {
+          color: color($button-inverse-color);
+        }
+
+        &:hover,
+        &.usa-button--hover {
+          color: color($button-inverse-hover-color);
+        }
+
+        &:active,
+        &.usa-button--active {
+          color: color($button-inverse-active-color);
+        }
       }
     }
   }
-}
 
-.usa-button--base {
-  @include set-text-and-bg("base", $context: $button-context);
+  &.usa-button--base {
+    @include set-text-and-bg("base", $context: $button-context);
 
-  &:hover,
-  &.usa-button--hover {
-    @include set-text-and-bg("base-dark", $context: $button-context);
-  }
+    &:hover,
+    &.usa-button--hover {
+      @include set-text-and-bg("base-dark", $context: $button-context);
+    }
 
-  &:active,
-  &.usa-button--active {
-    @include set-text-and-bg("base-darker", $context: $button-context);
-  }
-}
-
-.usa-button--secondary {
-  @include set-text-and-bg("secondary", $context: $button-context);
-
-  &:hover,
-  &.usa-button--hover {
-    @include set-text-and-bg("secondary-dark", $context: $button-context);
-  }
-
-  &:active,
-  &.usa-button--active {
-    @include set-text-and-bg("secondary-darker", $context: $button-context);
-  }
-}
-
-.usa-button--big {
-  border-radius: radius($theme-button-border-radius);
-  font-size: font-size($theme-button-font-family, "lg");
-  padding: units(2) units(3);
-}
-
-// Cannot use disabled mixin due to transparent causing build errors with color grade check.
-.usa-button--outline:disabled,
-.usa-button--outline[aria-disabled="true"],
-.usa-button--outline-inverse:disabled,
-.usa-button--outline-inverse[aria-disabled="true"] {
-  &,
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: transparent;
-    color: color("disabled");
-  }
-}
-
-.usa-button--outline:disabled,
-.usa-button--outline[aria-disabled="true"] {
-  box-shadow: $button-stroke color("disabled-lighter");
-
-  &.usa-button--inverse {
-    box-shadow: $button-stroke color("disabled-light");
-    color: color("disabled-light");
-
-    @media (forced-colors: active) {
-      color: color(GrayText);
+    &:active,
+    &.usa-button--active {
+      @include set-text-and-bg("base-darker", $context: $button-context);
     }
   }
-}
 
-.usa-button--unstyled {
-  @include button-unstyled;
+  &.usa-button--secondary {
+    @include set-text-and-bg("secondary", $context: $button-context);
+
+    &:hover,
+    &.usa-button--hover {
+      @include set-text-and-bg("secondary-dark", $context: $button-context);
+    }
+
+    &:active,
+    &.usa-button--active {
+      @include set-text-and-bg("secondary-darker", $context: $button-context);
+    }
+  }
+
+  &.usa-button--big {
+    border-radius: radius($theme-button-border-radius);
+    font-size: font-size($theme-button-font-family, "lg");
+    padding: units(2) units(3);
+  }
+
+  // Cannot use disabled mixin due to transparent causing build errors with color grade check.
+  &.usa-button--outline:disabled,
+  &.usa-button--outline[aria-disabled="true"],
+  &.usa-button--outline-inverse:disabled,
+  &.usa-button--outline-inverse[aria-disabled="true"] {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: transparent;
+      color: color("disabled");
+    }
+  }
+
+  &.usa-button--outline:disabled,
+  &.usa-button--outline[aria-disabled="true"] {
+    box-shadow: $button-stroke color("disabled-lighter");
+
+    &.usa-button--inverse {
+      box-shadow: $button-stroke color("disabled-light");
+      color: color("disabled-light");
+
+      @media (forced-colors: active) {
+        color: color(GrayText);
+      }
+    }
+  }
+
+  &.usa-button--unstyled {
+    @include button-unstyled;
+  }
+
+  // Disabled styles must come after variants to avoid regression due to specificity.
+  &:disabled,
+  &[aria-disabled="true"] {
+    @include button-disabled;
+  }
 }
