@@ -35,6 +35,8 @@ const DEFAULT_FILTER = ".*{{query}}.*";
 
 const noop = () => {};
 
+let optionsCache = [];
+
 /**
  * set the value of the element and dispatch a change event
  *
@@ -478,6 +480,10 @@ const displayList = (el) => {
     }
   });
 
+  const optionsMatchCache = options.toString() === optionsCache.toString();
+
+  optionsCache = options;
+
   const numOptions = options.length;
   const optionHtml = options.map((option, index) => {
     const optionId = `${listOptionBaseId}${index}`;
@@ -517,14 +523,16 @@ const displayList = (el) => {
 
   listEl.hidden = false;
 
-  if (numOptions) {
-    listEl.innerHTML = "";
-    optionHtml.forEach((item) =>
-      listEl.insertAdjacentElement("beforeend", item),
-    );
-  } else {
-    listEl.innerHTML = "";
-    listEl.insertAdjacentElement("beforeend", noResults);
+  if (!optionsMatchCache) {
+    if (numOptions) {
+      listEl.innerHTML = "";
+      optionHtml.forEach((item) =>
+        listEl.insertAdjacentElement("beforeend", item),
+      );
+    } else {
+      listEl.innerHTML = "";
+      listEl.insertAdjacentElement("beforeend", noResults);
+    }
   }
 
   inputEl.setAttribute("aria-expanded", "true");
