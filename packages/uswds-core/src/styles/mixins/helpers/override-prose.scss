@@ -1,6 +1,11 @@
+@use "sass:meta";
+
 @mixin override-prose {
   @content;
-  .usa-prose {
-    @content;
+
+  @if meta.mixin-exists("prose-test") {
+    .usa-prose {
+      @content;
+    }
   }
 }
