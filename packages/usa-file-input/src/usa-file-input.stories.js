@@ -37,12 +37,24 @@ Default.args = DefaultContent;
 
 export const Error = Template.bind({});
 Error.args = ErrorContent;
+Error.decorators = [
+  (Story) =>
+    `<div class="padding-x-205">
+      ${Story()}
+    </div>`,
+];
 
 export const Multiple = Template.bind({});
 Multiple.args = MultipleContent;
 
 export const Specific = Template.bind({});
 Specific.args = SpecificContent;
+Specific.decorators = [
+  (Story) =>
+    `<div class="padding-x-205">
+      ${Story()}
+    </div>`,
+];
 
 export const Wildcard = Template.bind({});
 Wildcard.args = WildcardContent;

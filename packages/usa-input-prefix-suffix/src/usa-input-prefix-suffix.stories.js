@@ -23,6 +23,12 @@ const PrefixTemplate = (args) => prefix(args);
 const SuffixTemplate = (args) => suffix(args);
 
 export const Prefix = PrefixTemplate.bind({});
+Prefix.decorators = [
+  (Story) =>
+    `<div class="padding-x-205">
+      ${Story()}
+    </div>`,
+];
 
 export const PrefixDisabled = PrefixTemplate.bind({});
 PrefixDisabled.args = {
