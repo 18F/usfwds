@@ -22,3 +22,8 @@ overrides:
         no-unsanitized/property: off
         }
       }
+  - files: ['uswds-init.js']
+    rules:
+      # Flagged addEventListener is not "used by mistake", intending global
+      # See: https://www.npmjs.com/package/confusing-browser-globals
+      no-restricted-globals: off
