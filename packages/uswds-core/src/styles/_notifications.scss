@@ -206,6 +206,15 @@ $uswds-notifications:
 + "\A   from announcing the invalid file type error message."
 + "\A - Accessibility: [usa-footer] Removed `overflow: hidden` from `usa-footer` "
 + "\A   to allow the full focus outline to show."
++ "\A "
++ "\A --------------------------------------------------------------------"
++ "\A 3.12.0"
++ "\A Release notes: github.com/uswds/uswds/releases/tag/v3.12.0"
++ "\A "
++ "\A - Display: [usa-in-page-navigation]"
++ "\A   Fixed a bug that prevented in-page navigation from scrolling to nested headings."
++ "\A   ✏️ Teams that use `data-scroll-offset` should confirm this change"
++ "\A     does not cause regressions in scroll behaviors."
 + "\A ";
 
 /* prettier-ignore */
