@@ -1,4 +1,4 @@
-const { keymap } = require("receptor");
+const keymap = require("./keymap");
 const behavior = require("./behavior");
 const select = require("./select");
 const activeElement = require("./active-element");

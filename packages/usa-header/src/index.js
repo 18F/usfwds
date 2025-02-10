@@ -1,4 +1,4 @@
-const keymap = require("receptor/keymap");
+const keymap = require("../../uswds-core/src/js/utils/keymap");
 const behavior = require("../../uswds-core/src/js/utils/behavior");
 const select = require("../../uswds-core/src/js/utils/select");
 const toggle = require("../../uswds-core/src/js/utils/toggle");

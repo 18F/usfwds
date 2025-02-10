@@ -1,4 +1,4 @@
-const keymap = require("receptor/keymap");
+const keymap = require("../../uswds-core/src/js/utils/keymap");
 const selectOrMatches = require("../../uswds-core/src/js/utils/select-or-matches");
 const behavior = require("../../uswds-core/src/js/utils/behavior");
 const Sanitizer = require("../../uswds-core/src/js/utils/sanitizer");
