@@ -6,31 +6,32 @@ const activeElement = require("./active-element");
 const FOCUSABLE =
   'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
 
-const tabHandler = (context) => {
-  const focusableElements = select(FOCUSABLE, context);
-  const firstTabStop = focusableElements[0];
-  const lastTabStop = focusableElements[focusableElements.length - 1];
+const getFocusableElements = (context) =>
+  Array.from(select(FOCUSABLE, context));
+const firstTabStop = (context) => getFocusableElements(context)[0];
+const lastTabStop = (context) => getFocusableElements(context).at(-1);
 
+const tabHandler = (context) => {
   // Special rules for when the user is tabbing forward from the last focusable element,
   // or when tabbing backwards from the first focusable element
   function tabAhead(event) {
-    if (activeElement() === lastTabStop) {
+    if (activeElement() === lastTabStop(context)) {
       event.preventDefault();
-      firstTabStop.focus();
+      firstTabStop(context).focus();
     }
   }
 
   function tabBack(event) {
-    if (activeElement() === firstTabStop) {
+    if (activeElement() === firstTabStop(context)) {
       event.preventDefault();
-      lastTabStop.focus();
+      lastTabStop(context).focus();
     }
     // This checks if you want to set the initial focus to a container
     // instead of an element within, and the user tabs back.
     // Then we set the focus to the first
-    else if (!focusableElements.includes(activeElement())) {
+    else if (!getFocusableElements(context).includes(activeElement())) {
       event.preventDefault();
-      firstTabStop.focus();
+      firstTabStop(context).focus();
     }
   }
 
@@ -66,8 +67,8 @@ module.exports = (context, additionalKeyBindings = {}) => {
       init() {
         // TODO: is this desirable behavior? Should the trap always do this by default or should
         // the component getting decorated handle this?
-        if (tabEventHandler.firstTabStop) {
-          tabEventHandler.firstTabStop.focus();
+        if (tabEventHandler.firstTabStop(context)) {
+          tabEventHandler.firstTabStop(context).focus();
         }
       },
       update(isActive) {
