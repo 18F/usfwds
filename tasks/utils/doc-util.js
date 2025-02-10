@@ -4,15 +4,46 @@ const pkg = require("../../package.json");
 
 const shellPrefix = "$";
 
-function drawFlag() {
+function drawFlagBW() {
   log(colors.white(""));
-  log(colors.white("* * * * * ========================"));
-  log(colors.white("* * * * * ========================"));
-  log(colors.white("* * * * * ========================"));
-  log(colors.white("* * * * * ========================"));
-  log(colors.white("=================================="));
-  log(colors.white("=================================="));
-  log(colors.white("=================================="));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ █████████████████████████████████"));
+  log(colors.white("   ★   ★   ★   ★   ★                                    "));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ █████████████████████████████████"));
+  log(colors.white("   ★   ★   ★   ★   ★                                    "));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ █████████████████████████████████"));
+  log(colors.white("   ★   ★   ★   ★   ★                                    "));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ █████████████████████████████████"));
+  log(colors.white("                                                        "));
+  log(colors.white("████████████████████████████████████████████████████████"));
+  log(colors.white("                                                        "));
+  log(colors.white("████████████████████████████████████████████████████████"));
+  log(colors.white("                                                        "));
+  log(colors.white("████████████████████████████████████████████████████████"));
+  log(colors.white(""));
+}
+
+function drawFlagColor() {
+  log(colors.white(""));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ ") +
+    colors.red("█████████████████████████████████"));
+  log(colors.white("   ★   ★   ★   ★   ★   ") +
+    colors.white("█████████████████████████████████"));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ ") +
+    colors.red("█████████████████████████████████"));
+  log(colors.white("   ★   ★   ★   ★   ★   ") +
+    colors.white("█████████████████████████████████"));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ ") +
+    colors.red("█████████████████████████████████"));
+  log(colors.white("   ★   ★   ★   ★   ★   ") +
+    colors.white("█████████████████████████████████"));
+  log(colors.white(" ★   ★   ★   ★   ★   ★ ") +
+    colors.red("█████████████████████████████████"));
+  log(colors.white("████████████████████████████████████████████████████████"));
+  log(colors.red("████████████████████████████████████████████████████████"));
+  log(colors.white("████████████████████████████████████████████████████████"));
+  log(colors.red("████████████████████████████████████████████████████████"));
+  log(colors.white("████████████████████████████████████████████████████████"));
+  log(colors.red("████████████████████████████████████████████████████████"));
   log(colors.white(""));
 }
 
@@ -24,10 +55,16 @@ module.exports = {
 
   dirName: `${pkg.name}-${pkg.version}`,
 
-  logIntroduction(message) {
-    const introMessage = message || "USWDS";
-    log(colors.yellow(`${introMessage} v${pkg.version}`));
-    drawFlag();
+  logIntroduction() {
+    log(colors.white(""));
+    log(colors.yellow(` Building USWDS v${pkg.version}`));
+    drawFlagBW();
+  },
+
+  logPostscript() {
+    log(colors.white(""));
+    log(colors.yellow(` USWDS v${pkg.version} built!`));
+    drawFlagColor();
   },
 
   logCommand(name, message) {
