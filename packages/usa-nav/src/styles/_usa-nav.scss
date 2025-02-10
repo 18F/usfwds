@@ -102,6 +102,10 @@ $expand-less-icon: map-merge(
     &.is-visible {
       animation: slidein-left 0.3s ease-in-out;
       display: flex;
+
+      @media (prefers-reduced-motion) {
+        animation: none;
+      }
     }
   }
 

@@ -125,10 +125,10 @@ $z-index-overlay: 400;
 
 .usa-overlay {
   @include u-pin("all");
+  @include u-transition("opacity");
   position: fixed;
   background: color("black-transparent-70");
   opacity: opacity(0);
-  transition: opacity $project-easing;
   visibility: hidden;
   z-index: z-index($z-index-overlay);
 

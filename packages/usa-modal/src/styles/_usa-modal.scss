@@ -19,8 +19,8 @@
 }
 
 .usa-modal-wrapper {
+  @include u-transition("opacity");
   text-align: center;
-  transition: opacity $project-easing;
 
   // Using visibility: hidden instead of display: none because
   // of iOS VoiceOver issue:
