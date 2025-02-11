@@ -1,0 +1,39 @@
+name: CodeQL Scan for USWDS
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Build USWDS JavaScript bundle
+        run: npm run build
+      - uses: actions/upload-artifact@v2
+        name: Upload code
+        with:
+          name: uswds
+          path: .
+      - name: Perform CodeQL analysis for dist
+        uses: github/code-scanning/codeql-action@v2
+        with:
+          product: codeql
+          product_version: '2.10.10'
+          source_dir: dist
+      - name: Perform CodeQL analysis for node_modules
+        uses: github/code-scanning/codeql-action@v2
+        with:
+          product: codeql
+          product_version: '2.10.10'
+          source_dir: node_modules
