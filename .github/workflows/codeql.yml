@@ -21,7 +21,7 @@ jobs:
       - name: Build USWDS JavaScript bundle
         run: npm run build
       - name: Run CodeQL Scan
-        uses: github/codeql-action@v1
+        uses: github/codeql-action@v2
         with:
           codeql.path: dist, node_modules
           codeql-database: javascript
