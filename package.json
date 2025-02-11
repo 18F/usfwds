@@ -116,7 +116,7 @@
     "@storybook/addon-essentials": "6.5.16",
     "@storybook/addon-links": "6.5.16",
     "@storybook/builder-webpack5": "6.5.16",
-    "@storybook/html": "6.5.16",
+    "@storybook/html": "8.5.4",
     "@storybook/manager-webpack5": "6.5.16",
     "@types/node": "20.14.10",
     "ansi-colors": "4.1.3",
