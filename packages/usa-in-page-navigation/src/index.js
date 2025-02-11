@@ -189,24 +189,6 @@ const getSectionId = (value) => {
 };
 
 /**
- * Calculates the total offset of an element from the top of the page.
- *
- * @param {HTMLElement} el A heading element to calculate the offset for.
- * @returns {number} The total element offset from the top of its parent.
- */
-const getTotalElementOffset = (el) => {
-  const calculateOffset = (currentEl) => {
-    if (!currentEl.offsetParent) {
-      return currentEl.offsetTop;
-    }
-
-    return currentEl.offsetTop + calculateOffset(currentEl.offsetParent);
-  };
-
-  return calculateOffset(el);
-};
-
-/**
  * Scroll smoothly to a section based on the passed in element
  *
  * @param {HTMLElement} el A heading element
@@ -215,8 +197,7 @@ const handleScrollToSection = (el) => {
   const inPageNavEl = document.querySelector(`.${IN_PAGE_NAV_CLASS}`);
   const inPageNavScrollOffset =
     inPageNavEl.dataset.scrollOffset || IN_PAGE_NAV_SCROLL_OFFSET;
-
-  const offsetTop = getTotalElementOffset(el);
+  const offsetTop = el.getBoundingClientRect().top + window.scrollY;
 
   window.scroll({
     behavior: "smooth",
