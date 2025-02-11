@@ -244,7 +244,7 @@ const enhanceComboBox = (_comboBoxEl) => {
     "beforeend",
     Sanitizer.escapeHTML`
     <span class="${CLEAR_INPUT_BUTTON_WRAPPER_CLASS}" tabindex="-1">
-        <button type="button" class="${CLEAR_INPUT_BUTTON_CLASS}" aria-label="Clear the select contents">&nbsp;</button>
+        <button type="button" class="${CLEAR_INPUT_BUTTON_CLASS}" aria-label="Clear selection">&nbsp;</button>
       </span>
       <span class="${INPUT_BUTTON_SEPARATOR_CLASS}">&nbsp;</span>
       <span class="${TOGGLE_LIST_BUTTON_WRAPPER_CLASS}" tabindex="-1">
