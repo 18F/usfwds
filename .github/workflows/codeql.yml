@@ -1,0 +1,31 @@
+name: CodeQL Scan for USWDS
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build JS bundle
+        run: npm run build
+
+  codeql-scan:
+    runs-on: ubuntu-latest
+    depends_on: build
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run CodeQL Scan
+        uses: github/codeql-action@v1
+        with:
+          codeql.path: dist, node_modules
+          codeql-database: javascript
+          
