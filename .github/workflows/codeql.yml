@@ -20,8 +20,20 @@ jobs:
         run: npm install
       - name: Build USWDS JavaScript bundle
         run: npm run build
-      - name: Run CodeQL Scan
-        uses: github/codeql-action@v2
+      - uses: actions/upload-artifact@v2
+        name: Upload code
         with:
-          codeql.path: ./dist, ./node_modules
-          codeql-database: javascript
+          name: uswds
+          path: .
+      - name: Perform CodeQL analysis for dist
+        uses: github/code-scanning/codeql-action@v2
+        with:
+          product: codeql
+          product_version: '2.10.10'
+          source_dir: dist
+      - name: Perform CodeQL analysis for node_modules
+        uses: github/code-scanning/codeql-action@v2
+        with:
+          product: codeql
+          product_version: '2.10.10'
+          source_dir: node_modules
