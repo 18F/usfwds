@@ -23,5 +23,5 @@ jobs:
       - name: Run CodeQL Scan
         uses: github/codeql-action@v2
         with:
-          codeql.path: dist, node_modules
+          codeql.path: ./dist, ./node_modules
           codeql-database: javascript
