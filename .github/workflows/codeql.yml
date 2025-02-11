@@ -1,4 +1,5 @@
 name: CodeQL Scan for USWDS
+
 on:
   push:
     branches: [ develop ]
@@ -11,7 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Build JS bundle
+      - name: Install dependencies
+        run: npm install
+      - name: Build USWDS JavaScript bundle
         run: npm run build
       - name: Run CodeQL Scan
         uses: github/codeql-action@v1
