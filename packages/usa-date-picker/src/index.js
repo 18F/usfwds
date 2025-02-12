@@ -7,6 +7,7 @@ const { CLICK } = require("../../uswds-core/src/js/events");
 const activeElement = require("../../uswds-core/src/js/utils/active-element");
 const isIosDevice = require("../../uswds-core/src/js/utils/is-ios-device");
 const Sanitizer = require("../../uswds-core/src/js/utils/sanitizer");
+const debounce = require("../../uswds-core/src/js/utils/debounce");
 
 const DATE_PICKER_CLASS = `${PREFIX}-date-picker`;
 const DATE_PICKER_WRAPPER_CLASS = `${DATE_PICKER_CLASS}__wrapper`;
@@ -51,6 +52,7 @@ const CALENDAR_ROW_CLASS = `${DATE_PICKER_CALENDAR_CLASS}__row`;
 const CALENDAR_CELL_CLASS = `${DATE_PICKER_CALENDAR_CLASS}__cell`;
 const CALENDAR_CELL_CENTER_ITEMS_CLASS = `${CALENDAR_CELL_CLASS}--center-items`;
 const CALENDAR_MONTH_LABEL_CLASS = `${DATE_PICKER_CALENDAR_CLASS}__month-label`;
+const CALENDAR_MONTH_LABEL_CLASS_NARROW = `${DATE_PICKER_CALENDAR_CLASS}__month-label-narrow`;
 const CALENDAR_DAY_OF_WEEK_CLASS = `${DATE_PICKER_CALENDAR_CLASS}__day-of-week`;
 
 const DATE_PICKER = `.${DATE_PICKER_CLASS}`;
@@ -1333,6 +1335,35 @@ const selectDate = (calendarDateEl) => {
 };
 
 /**
+ * Resize month label based on parent container width.
+ *
+ * @param {HTMLElement} el An element within the calendar component
+ */
+const checkWidth = (el) => {
+  const parent = el.querySelector(`.${CALENDAR_ROW_CLASS}`);
+  const child =
+    el.querySelector(`.${CALENDAR_MONTH_LABEL_CLASS}`) ||
+    el.querySelector(`.${CALENDAR_MONTH_LABEL_CLASS_NARROW}`);
+
+  // Add narrow class styling when parent width is less than 300
+  if (parent.offsetWidth < 300) {
+    child.classList.add(CALENDAR_MONTH_LABEL_CLASS_NARROW);
+    child.classList.remove(CALENDAR_MONTH_LABEL_CLASS);
+  } else {
+    child.classList.add(CALENDAR_MONTH_LABEL_CLASS);
+    child.classList.remove(CALENDAR_MONTH_LABEL_CLASS_NARROW);
+  }
+
+  // Add event listener to run on resize
+  window.addEventListener(
+    "resize",
+    debounce(() => {
+      checkWidth(el);
+    }, 500),
+  );
+};
+
+/**
  * Toggle the calendar.
  *
  * @param {HTMLButtonElement} el An element within the date picker component
@@ -1350,6 +1381,7 @@ const toggleCalendar = (el) => {
     );
     const newCalendar = renderCalendar(calendarEl, dateToDisplay);
     newCalendar.querySelector(CALENDAR_DATE_FOCUSED).focus();
+    checkWidth(newCalendar);
   } else {
     hideCalendar(el);
   }

@@ -17,6 +17,36 @@ const tests = [
   { name: "date picker", selector: datePickerSelector },
 ];
 
+// --- Global override to track "resize" event listeners ---
+
+let resizeListeners = [];
+
+const originalAddEventListener = window.addEventListener;
+const originalRemoveEventListener = window.removeEventListener;
+
+// Override addEventListener before each test to capture all "resize" listeners
+beforeEach(() => {
+  resizeListeners = [];
+  window.addEventListener = function (type, listener, options) {
+    if (type === "resize") {
+      resizeListeners.push(listener);
+    }
+    return originalAddEventListener.call(window, type, listener, options);
+  };
+});
+
+// Remove captured listeners
+afterEach(() => {
+  resizeListeners.forEach((listener) => {
+    originalRemoveEventListener.call(window, "resize", listener);
+  });
+  resizeListeners = [];
+  window.addEventListener = originalAddEventListener;
+  window.removeEventListener = originalRemoveEventListener;
+});
+
+// --- End Global override ---
+
 tests.forEach(({ name, selector: containerSelector }) => {
   describe(`date picker component initialized at ${name}`, () => {
     const { body } = document;

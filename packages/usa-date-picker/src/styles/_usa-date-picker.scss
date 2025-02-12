@@ -370,15 +370,13 @@ $navigate_far_next: map-merge(
 }
 
 .usa-date-picker__calendar__month-label {
-  @include at-media-max("mobile") {
-    min-width: 100%;
-    order: -1;
-  }
+  flex: 4;
+  text-align: center;
+}
 
-  @include at-media("mobile") {
-    flex: 4;
-    text-align: center;
-  }
+.usa-date-picker__calendar__month-label-narrow {
+  min-width: 100%;
+  order: -1;
 }
 
 .usa-date-picker__calendar__year-selection,
