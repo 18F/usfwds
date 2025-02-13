@@ -7,6 +7,7 @@ const comboBox = require("../../../usa-combo-box/src/index");
 
 const TEMPLATE = fs.readFileSync(path.join(__dirname, "template.html"));
 const modalWindowSelector = () => document.querySelector(".usa-modal");
+const modalWrapperSelector = () => document.querySelector(".usa-modal-wrapper");
 const bodySelector = () => document.body;
 const openButton1Selector = () => document.querySelector("#open-button1");
 const openButton2Selector = () => document.querySelector("#open-button2");
@@ -154,6 +155,45 @@ tests.forEach(({ name, selector: containerSelector }) => {
         const staysHidden = document.getElementById("stays-hidden");
         assert.strictEqual(activeContent.length, 4);
         assert.strictEqual(staysHidden.hasAttribute("aria-hidden"), true);
+      });
+    });
+
+    describe("JS triggered modals", () => {
+      beforeEach(() => {
+        openButton2 = openButton2Selector();
+      });
+
+      afterEach(() => {
+        modal.hide("modal");
+      });
+
+      it("toggle() should open the modal if it is closed and close it if it is open", () => {
+        // Initially, the modal should be hidden
+        assert.strictEqual(isVisible(modalWrapper), false);
+        modal.toggle("modal");
+        assert.strictEqual(isVisible(modalWrapper), true);
+        modal.toggle("modal");
+        assert.strictEqual(isVisible(modalWrapper), false);
+      });
+
+      it("show() should open the modal and focus its inner content", () => {
+        modal.show("modal");
+        assert.strictEqual(isVisible(modalWrapper), true);
+        // The inner modal should receive focus
+        const initialFocusEl =
+          modalWindow.querySelector("[data-focus]") || modalWindow;
+        assert.strictEqual(document.activeElement, initialFocusEl);
+      });
+
+      it("hide() should close the modal and return focus to the opener", () => {
+        // Simulate clicking openButton2 to record it as the opener
+        openButton2.click();
+        modal.show("modal");
+        assert.strictEqual(isVisible(modalWrapper), true);
+        modal.hide("modal");
+        assert.strictEqual(isVisible(modalWrapper), false);
+        // Return focus to openButton
+        assert.strictEqual(document.activeElement, openButton2);
       });
     });
   });
