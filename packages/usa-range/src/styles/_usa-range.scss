@@ -32,12 +32,27 @@
   border: units(1px) solid color("base");
 }
 
+.usa-range__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.usa-range__value {
+  @extend %block-input-general;
+  max-inline-size: 5%;
+  min-inline-size: 5%;
+  padding-top: 5px;
+  margin-left: 5px;
+}
+
 .usa-range {
   @extend %block-input-general;
   @extend %block-input-styles;
   appearance: none;
   border: none;
   padding-left: 1px;
+  padding-right: 1px;
   width: 100%;
 
   &:focus {
