@@ -70,6 +70,7 @@ const transformTimePicker = (el) => {
     "aria-labelledby",
     "disabled",
     "aria-disabled",
+    "aria-describedby",
   ].forEach((name) => {
     if (initialInputEl.hasAttribute(name)) {
       const value = initialInputEl.getAttribute(name);
