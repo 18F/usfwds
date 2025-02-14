@@ -13,18 +13,19 @@ const HIDE_ATTR = "data-hide-text";
 const getHideText = (showText) =>
   showText.replace(/\bShow\b/i, (show) => `${show[0] === "S" ? "H" : "h"}ide`);
 
-const resolveIdRefs = (id) => {
-  const ids = id.trim().split(/\s+/);
-
-  return ids.map((i) => {
-    const el = document.getElementById(i);
-    if (!el) {
-      const err = `no element with id: ${i}`;
-      throw new Error(err);
-    }
-    return el;
-  });
-};
+/**
+ * Given a string of space-separated element IDs, returns an array of corresponding elements with
+ * those IDs.
+ *
+ * @param {string} idRefs Space-separated element IDs
+ * @return {Element[]} Elements matching given IDs
+ */
+const resolveIdRefs = (idRefs) =>
+  idRefs
+    .trim()
+    .split(/\s+/)
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
 
 /**
  * Component that decorates an HTML element with the ability to toggle the
@@ -35,7 +36,7 @@ const resolveIdRefs = (id) => {
  * @param  {HTMLElement} el    Parent element containing the fields to be masked
  * @return {boolean}
  */
-module.exports = (el) => {
+const toggleFormInput = (el) => {
   // this is the *target* state:
   // * if the element has the attr and it's !== "true", pressed is true
   // * otherwise, pressed is false
@@ -56,3 +57,6 @@ module.exports = (el) => {
   el.setAttribute(PRESSED, pressed);
   return pressed;
 };
+
+module.exports = toggleFormInput;
+module.exports.resolveIdRefs = resolveIdRefs;
