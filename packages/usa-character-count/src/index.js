@@ -37,7 +37,7 @@ const getCharacterCountElements = (inputEl) => {
   const formGroupEl = characterCountEl.querySelector(FORM_GROUP);
 
   const inputID = inputEl.getAttribute("id");
-  const labelEl = document.querySelector(`label[for=${inputID}]`);
+  const labelEl = document.querySelector(`label[for="${inputID}"]`);
 
   const messageEl = characterCountEl.querySelector(MESSAGE);
 
